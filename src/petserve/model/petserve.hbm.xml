@@ -1,0 +1,116 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="petserve.model">  
+    <!-- 标识一个类的xml映射,name为类名,table为表名 -->  
+    <class name="BeanAppointment" table="appointment">
+    	<id name="appointment_id" type="integer">
+    		<column name="appointment_id"></column>
+    		<generator class="assigned"></generator>
+    	</id>
+    	 <property name="user_id" type="integer">  
+            <column name="user_id" />  
+        </property> 
+        <property name="product_id" type="integer">  
+            <column name="product_id" />  
+        </property>
+        <property name="order_begin_time" type="date">  
+            <column name="order_begin_time" />  
+        </property>  
+        <property name="order_end_time" type="date">  
+            <column name="order_end_time" />  
+        </property>
+        <property name="circumstance" type="string">  
+            <column name="circumstance" />  
+        </property>
+    </class>
+    
+    <class name="BeanPet_information" table="pet_information">
+    	<id name="pet_id" type="integer">
+    		<column name="pet_id"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	<property name="user_id" type="integer">  
+            <column name="user_id" />  
+        </property>
+        <property name="pet_namer" type="string">  
+            <column name="pet_name" />  
+        </property>
+        <property name="name" type="string">  
+            <column name="name" />  
+        </property>
+        <property name="picture" type="binary">  
+            <column name="picture" />  
+        </property>
+        <property name="appointment_state" type="byte">  
+            <column name="appointment_state" />  
+        </property>
+        <property name="age" type="integer">  
+            <column name="age" />  
+        </property>
+        <property name="healthy" type="short">  
+            <column name="healthy" />  
+        </property>
+    </class>
+    
+    <class name="BeanProducts_information" table="products_information">
+    	<id name="product_id" type="integer">
+    		<column name="product_id"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	<property name="pro_type_code" type="string">  
+            <column name="pro_type_code" />  
+        </property>	
+        <property name="product_name" type="string">  
+            <column name="product_name" />  
+        </property>	
+         <property name="brand" type="string">  
+            <column name="brand" />  
+        </property>	
+        <property name="retail_price" type="float">  
+            <column name="retail_price" />  
+        </property>	
+        <property name="product_code" type="string">  
+            <column name="product_code" />  
+        </property>
+        <property name="price" type="float">  
+            <column name="price" />  
+        </property>
+    </class>
+    
+    <class name="BeanProducts_types" table="products_types">
+    	<id name="type_code" type="string">
+    		<column name="type_code"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	<property name="type_name" type="string">  
+            <column name="type_name" />  
+        </property>	
+        <property name="type_describe" type="string">  
+            <column name="type_describe" />  
+        </property>	
+    </class>
+    
+    <class name="BeanUser_information" table="user_information">
+    	<id name="user_id" type="integer">
+    		<column name="user_id"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	<property name="phone_number" type="integer">  
+            <column name="phone_number" />  
+        </property>	
+        <property name="passward" type="string">  
+            <column name="passward" />  
+        </property>	
+         <property name="user_name" type="string">  
+            <column name="user_name" />  
+        </property>	
+        <property name="email" type="string">  
+            <column name="email" />  
+        </property>	
+        <property name="other_contact" type="string">  
+            <column name="other_contact" />  
+        </property>
+        <property name="authority" type="short">  
+            <column name="authority" />  
+        </property>
+    </class>
+</hibernate-mapping>
