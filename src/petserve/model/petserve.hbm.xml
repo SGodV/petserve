@@ -26,7 +26,7 @@
     <class name="BeanPet_information" table="pet_information">
     	<id name="pet_id" type="integer">
     		<column name="pet_id"></column>
-    		<generator class="native"></generator>
+    		<generator class="assigned"></generator>
     	</id>
     	<property name="user_id" type="integer">  
             <column name="user_id" />  
@@ -54,7 +54,7 @@
     <class name="BeanProducts_information" table="products_information">
     	<id name="product_id" type="integer">
     		<column name="product_id"></column>
-    		<generator class="native"></generator>
+    		<generator class="assigned"></generator>
     	</id>
     	<property name="pro_type_code" type="string">  
             <column name="pro_type_code" />  
@@ -79,7 +79,7 @@
     <class name="BeanProducts_types" table="products_types">
     	<id name="type_code" type="string">
     		<column name="type_code"></column>
-    		<generator class="native"></generator>
+    		<generator class="assigned"></generator>
     	</id>
     	<property name="type_name" type="string">  
             <column name="type_name" />  
@@ -92,7 +92,7 @@
     <class name="BeanUser_information" table="user_information">
     	<id name="user_id" type="integer">
     		<column name="user_id"></column>
-    		<generator class="native"></generator>
+    		<generator class="assigned"></generator>
     	</id>
     	<property name="phone_number" type="integer">  
             <column name="phone_number" />  
