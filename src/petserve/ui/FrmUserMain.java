@@ -25,14 +25,12 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	private JMenuItem orderMenuItem_3 = new JMenuItem("已完成订单");
 	
 	
-	private DlgLogin dlgLogin=null;
 	
 	public FrmUserMain() {
 		
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setTitle("宠物服务系统");
-		dlgLogin=new DlgLogin(this,"登陆",true);
-		dlgLogin.setVisible(true);
+		
 		
 		setJMenuBar(menuBar);
 		

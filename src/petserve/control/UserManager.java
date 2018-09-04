@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import petserve.itf.IUserManager;
 import petserve.model.BeanUser_information;
 import petserve.util.BaseException;
+import petserve.util.BusinessException;
 import petserve.util.HibernateUtil;
 
 public class UserManager implements IUserManager {
@@ -72,7 +73,17 @@ public class UserManager implements IUserManager {
 	@Override
 	public BeanUser_information login(String userid, String pwd) throws BaseException {
 		// TODO Auto-generated method stub
-		int userPhone = Integer.valueOf(userid).intValue(); 
+		if(userid==null || "".equals(userid)) throw new BaseException("用户名不能为空");
+		if(pwd==null || "".equals(pwd)) throw new BaseException("密码不能为空");
+		int userPhone;
+		try {
+			userPhone = Integer.valueOf(userid).intValue(); 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.getMessage();
+			throw new BusinessException("请输入正确的手机号");
+		}
+		
 		HibernateUtil hib=new HibernateUtil();
 		Session session=hib.getSession();
         String hql="from user_information where phone_number=" + userPhone;

@@ -36,8 +36,8 @@ public class DlgLogin extends JDialog implements ActionListener{
 	private JTextField edtUserId = new JTextField(20);
 	private JPasswordField edtPwd = new JPasswordField(20);
 	
-	public DlgLogin(Frame f, String s, boolean b) {
-		super(f, s, b);
+	public DlgLogin() {
+		this.setTitle("µÇÂ¼");
 		toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		toolBar.add(btnLogin);
 		//toolBar.add(btnCancel);
@@ -75,15 +75,21 @@ public class DlgLogin extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == this.btnLogin) {
-//			String userid=this.edtUserId.getText();
-//			String pwd=new String(this.edtPwd.getPassword());
-//			try {
-//				BeanUser_information.currentLoginUser = PetUtil.userManager.login(userid, pwd);
-//			} catch (BaseException e1) {
-//				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
-//				return;
-//			}
+			String userid=this.edtUserId.getText();
+			String pwd=new String(this.edtPwd.getPassword());
+			try {
+				BeanUser_information.currentLoginUser = PetUtil.userManager.login(userid, pwd);
+			} catch (BaseException e1) {
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			this.setVisible(false);
+			if (BeanUser_information.currentLoginUser.getAuthority() == (short) 1)
+				new FrmUserMain();
+			else if (BeanUser_information.currentLoginUser.getAuthority() == (short) 0)
+				;
+			else
+				System.exit(0);
 		}
 		else if (e.getSource() == this.btnRegister1) {
 			DlgRegister1 dlg1=new DlgRegister1(this,"×¢²á",true);

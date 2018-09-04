@@ -1,7 +1,7 @@
 package petserve.model;
 
 public class BeanUser_information {
-	public static Object currentLoginUser = null;
+	public static BeanUser_information currentLoginUser = null;
 	private int user_id;
 	private int phone_number;
 	private String passward;
