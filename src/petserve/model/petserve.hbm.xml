@@ -94,7 +94,7 @@
     		<column name="user_id"></column>
     		<generator class="assigned"></generator>
     	</id>
-    	<property name="phone_number" type="integer">  
+    	<property name="phone_number" type="string">  
             <column name="phone_number" />  
         </property>	
         <property name="passward" type="string">  

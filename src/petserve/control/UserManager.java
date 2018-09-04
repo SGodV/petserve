@@ -20,7 +20,6 @@ public class UserManager implements IUserManager {
 		if(userPhone==null || "".equals(userPhone)) throw new BaseException("用户名不能为空");
 		if(pwd==null || "".equals(pwd)) throw new BaseException("密码不能为空");
 		if(!pwd.equals(pwd2)) throw new BaseException("两次输入的密码要一致");
-		int phone = Integer.valueOf(userPhone).intValue();
 		HibernateUtil hib=new HibernateUtil();
 		Session session=hib.getSession();
 		Transaction transaction = session.beginTransaction();
@@ -32,7 +31,7 @@ public class UserManager implements IUserManager {
 			throw new BaseException("用户已经存在");
 		}
 		BeanUser_information cu = new BeanUser_information();
-		cu.setPhone_number(phone);
+		cu.setPhone_number(userPhone);
 		cu.setPassward(pwd);
 		cu.setUser_name(userName);
 		cu.setEmail(userEmail);
@@ -49,7 +48,6 @@ public class UserManager implements IUserManager {
 		if(adminPhone==null || "".equals(adminPhone)) throw new BaseException("用户名不能为空");
 		if(pwd==null || "".equals(pwd)) throw new BaseException("密码不能为空");
 		if(!pwd.equals(pwd2)) throw new BaseException("两次输入的密码要一致");
-		int phone = Integer.valueOf(adminPhone).intValue();
 		HibernateUtil hib=new HibernateUtil();
 		Session session=hib.getSession();
 		Transaction transaction = session.beginTransaction();
@@ -61,7 +59,7 @@ public class UserManager implements IUserManager {
 			throw new BaseException("用户已经存在");
 		}
 		BeanUser_information cu = new BeanUser_information();
-		cu.setPhone_number(phone);
+		cu.setPhone_number(adminPhone);
 		cu.setPassward(pwd);
 		cu.setUser_name(adminName);
 		cu.setAuthority((short) 0);
@@ -73,20 +71,16 @@ public class UserManager implements IUserManager {
 	@Override
 	public BeanUser_information login(String userid, String pwd) throws BaseException {
 		// TODO Auto-generated method stub
-		if(userid==null || "".equals(userid)) throw new BaseException("用户名不能为空");
-		if(pwd==null || "".equals(pwd)) throw new BaseException("密码不能为空");
-		int userPhone;
-		try {
-			userPhone = Integer.valueOf(userid).intValue(); 
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.getMessage();
-			throw new BusinessException("请输入正确的手机号");
-		}
+		if(userid==null || "".equals(userid)) 
+			throw new BaseException("用户名不能为空");
+		if(pwd==null || "".equals(pwd)) 
+			throw new BaseException("密码不能为空");
+		if(userid.length() != 11) 
+			throw new BaseException("请输入正确的手机号码");
 		
 		HibernateUtil hib=new HibernateUtil();
 		Session session=hib.getSession();
-        String hql="from user_information where phone_number=" + userPhone;
+        String hql="from user_information where phone_number=" + userid;
         Query qry=session.createQuery(hql);
         BeanUser_information u=(BeanUser_information)qry.uniqueResult();
 
@@ -95,7 +89,7 @@ public class UserManager implements IUserManager {
 			throw new BaseException("用户不存在");
 		}
 		BeanUser_information us=new BeanUser_information();
-		us.setPhone_number(userPhone);
+		us.setPhone_number(userid);
 		us.setPassward(u.getPassward());
 		if(!us.getPassward().equals(pwd)){
 			throw new BaseException("密码错误");

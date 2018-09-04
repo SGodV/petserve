@@ -3,7 +3,7 @@ package petserve.model;
 public class BeanUser_information {
 	public static BeanUser_information currentLoginUser = null;
 	private int user_id;
-	private int phone_number;
+	private String phone_number;
 	private String passward;
 	private String user_name;
 	private String email;
@@ -16,10 +16,10 @@ public class BeanUser_information {
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	public int getPhone_number() {
+	public String getPhone_number() {
 		return phone_number;
 	}
-	public void setPhone_number(int phone_number) {
+	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
 	}
 	public String getPassward() {
@@ -52,4 +52,6 @@ public class BeanUser_information {
 	public void setAuthority(short authority) {
 		this.authority = authority;
 	}
+	
+
 }
