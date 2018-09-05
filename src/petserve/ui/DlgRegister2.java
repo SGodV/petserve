@@ -82,6 +82,7 @@ public class DlgRegister2 extends JDialog implements ActionListener {
 					throw new BaseException("注册码不正确");
 				BeanUser_information user=PetUtil.userManager.regAdmin(userid,pwd1,pwd2,userName);
 				this.setVisible(false);
+				JOptionPane.showMessageDialog(null, "注册成功", "提示", JOptionPane.PLAIN_MESSAGE);
 			} catch (BaseException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage(),"错误",JOptionPane.ERROR_MESSAGE);
 				return;

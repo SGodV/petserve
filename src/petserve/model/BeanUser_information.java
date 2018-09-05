@@ -1,14 +1,14 @@
 package petserve.model;
 
 public class BeanUser_information {
-	public static BeanUser_information currentLoginUser = null;
+	
 	private int user_id;
 	private String phone_number;
-	private String passward;
+	private String password;
 	private String user_name;
 	private String email;
 	private String other_contact;
-	private short authority;
+	private int authority;
 	
 	public int getUser_id() {
 		return user_id;
@@ -22,11 +22,11 @@ public class BeanUser_information {
 	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
 	}
-	public String getPassward() {
-		return passward;
+	public String getPassword() {
+		return password;
 	}
-	public void setPassward(String passward) {
-		this.passward = passward;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getUser_name() {
 		return user_name;
@@ -46,12 +46,10 @@ public class BeanUser_information {
 	public void setOther_contact(String other_contact) {
 		this.other_contact = other_contact;
 	}
-	public short getAuthority() {
+	public int getAuthority() {
 		return authority;
 	}
-	public void setAuthority(short authority) {
+	public void setAuthority(int authority) {
 		this.authority = authority;
 	}
-	
-
 }

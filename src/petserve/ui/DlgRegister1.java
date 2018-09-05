@@ -84,6 +84,7 @@ public class DlgRegister1 extends JDialog implements ActionListener {
 			try {
 				BeanUser_information user=PetUtil.userManager.reg(userid,pwd1,pwd2,userName,userEmail,otherctc);
 				this.setVisible(false);
+				JOptionPane.showMessageDialog(null, "注册成功", "提示", JOptionPane.PLAIN_MESSAGE);
 			} catch (BaseException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage(),"错误",JOptionPane.ERROR_MESSAGE);
 				return;

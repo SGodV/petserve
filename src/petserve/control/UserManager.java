@@ -20,11 +20,12 @@ public class UserManager implements IUserManager {
 		if(userPhone==null || "".equals(userPhone)) throw new BaseException("用户名不能为空");
 		if(pwd==null || "".equals(pwd)) throw new BaseException("密码不能为空");
 		if(!pwd.equals(pwd2)) throw new BaseException("两次输入的密码要一致");
-		HibernateUtil hib=new HibernateUtil();
-		Session session=hib.getSession();
+		
+		Session session=HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		String hql="from user_information where phone_number=" + userPhone;
-        Query qry=session.createQuery(hql);
+		String hql="from BeanUser_information where phone_number=?";
+		Query qry=session.createQuery(hql);
+		qry.setParameter(0, userPhone);
         BeanUser_information u=(BeanUser_information)qry.uniqueResult();
         if(u!=null)
 		{
@@ -32,7 +33,7 @@ public class UserManager implements IUserManager {
 		}
 		BeanUser_information cu = new BeanUser_information();
 		cu.setPhone_number(userPhone);
-		cu.setPassward(pwd);
+		cu.setPassword(pwd);
 		cu.setUser_name(userName);
 		cu.setEmail(userEmail);
 		cu.setOther_contact(otherContact);
@@ -48,11 +49,12 @@ public class UserManager implements IUserManager {
 		if(adminPhone==null || "".equals(adminPhone)) throw new BaseException("用户名不能为空");
 		if(pwd==null || "".equals(pwd)) throw new BaseException("密码不能为空");
 		if(!pwd.equals(pwd2)) throw new BaseException("两次输入的密码要一致");
-		HibernateUtil hib=new HibernateUtil();
-		Session session=hib.getSession();
+		
+		Session session=HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		String hql="from user_information where phone_number=" + adminPhone;
-        Query qry=session.createQuery(hql);
+		String hql="from BeanUser_information where phone_number=?";
+		Query qry=session.createQuery(hql);
+		qry.setParameter(0, adminPhone);
         BeanUser_information u=(BeanUser_information)qry.uniqueResult();
         if(u!=null)
 		{
@@ -60,7 +62,7 @@ public class UserManager implements IUserManager {
 		}
 		BeanUser_information cu = new BeanUser_information();
 		cu.setPhone_number(adminPhone);
-		cu.setPassward(pwd);
+		cu.setPassword(pwd);
 		cu.setUser_name(adminName);
 		cu.setAuthority((short) 0);
 		session.save(cu);
@@ -78,11 +80,18 @@ public class UserManager implements IUserManager {
 		if(userid.length() != 11) 
 			throw new BaseException("请输入正确的手机号码");
 		
-		HibernateUtil hib=new HibernateUtil();
-		Session session=hib.getSession();
-        String hql="from user_information where phone_number=" + userid;
+		Session session=HibernateUtil.getSession();
+        String hql="from BeanUser_information where phone_number=?";
         Query qry=session.createQuery(hql);
-        BeanUser_information u=(BeanUser_information)qry.uniqueResult();
+        qry.setParameter(0, userid);
+        BeanUser_information u;
+		try {
+			u = (BeanUser_information)qry.uniqueResult();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+			throw new BaseException("找不到用户");
+		}
 
 		if(u==null)
 		{
@@ -90,8 +99,8 @@ public class UserManager implements IUserManager {
 		}
 		BeanUser_information us=new BeanUser_information();
 		us.setPhone_number(userid);
-		us.setPassward(u.getPassward());
-		if(!us.getPassward().equals(pwd)){
+		us.setPassword(u.getPassword());
+		if(!us.getPassword().equals(pwd)){
 			throw new BaseException("密码错误");
 		}
 		us.setEmail(u.getEmail());

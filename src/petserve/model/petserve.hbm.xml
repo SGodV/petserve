@@ -1,7 +1,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="petserve.model">  
     <!-- 标识一个类的xml映射,name为类名,table为表名 -->  
-    <class name="BeanAppointment" table="appointment">
+    <!--class name="BeanAppointment" table="appointment">
     	<id name="appointment_id" type="integer">
     		<column name="appointment_id"></column>
     		<generator class="assigned"></generator>
@@ -87,7 +87,7 @@
         <property name="type_describe" type="string">  
             <column name="type_describe" />  
         </property>	
-    </class>
+    </class>-->
     
     <class name="BeanUser_information" table="user_information">
     	<id name="user_id" type="integer">
@@ -97,8 +97,8 @@
     	<property name="phone_number" type="string">  
             <column name="phone_number" />  
         </property>	
-        <property name="passward" type="string">  
-            <column name="passward" />  
+        <property name="password" type="string">  
+            <column name="password" />  
         </property>	
          <property name="user_name" type="string">  
             <column name="user_name" />  
@@ -109,7 +109,7 @@
         <property name="other_contact" type="string">  
             <column name="other_contact" />  
         </property>
-        <property name="authority" type="short">  
+        <property name="authority" type="integer">  
             <column name="authority" />  
         </property>
     </class>
