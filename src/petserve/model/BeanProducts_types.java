@@ -1,14 +1,14 @@
 package petserve.model;
 
 public class BeanProducts_types {
-	private String type_code;
+	private int type_code;
 	private String type_name;
 	private String type_describe;
 	
-	public String getType_code() {
+	public int getType_code() {
 		return type_code;
 	}
-	public void setType_code(String type_code) {
+	public void setType_code(int type_code) {
 		this.type_code = type_code;
 	}
 	public String getType_name() {

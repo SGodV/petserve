@@ -6,8 +6,8 @@ public class BeanPet_information {
 	private String pet_name;
 	private String name;
 	private byte[] picture;
-	private byte appointment_state;
-	private int age;
+	private short appointment_state;
+	private short age;
 	private short healthy;
 	
 	public int getUser_id() {
@@ -40,16 +40,16 @@ public class BeanPet_information {
 	public void setPicture(byte[] picture) {
 		this.picture = picture;
 	}
-	public byte isAppointment_state() {
+	public short isAppointment_state() {
 		return appointment_state;
 	}
-	public void setAppointment_state(byte appointment_state) {
+	public void setAppointment_state(short appointment_state) {
 		this.appointment_state = appointment_state;
 	}
-	public int getAge() {
+	public short getAge() {
 		return age;
 	}
-	public void setAge(int age) {
+	public void setAge(short age) {
 		this.age = age;
 	}
 	public short getHealthy() {

@@ -1,7 +1,7 @@
 package petserve.model;
 
 public class BeanProducts_information {
-	private String pro_type_code;
+	private int type_code;
 	private int product_id;
 	private String product_name;
 	private String brand;
@@ -9,11 +9,12 @@ public class BeanProducts_information {
 	private String product_code;
 	private float price;
 	
-	public String getPro_type_code() {
-		return pro_type_code;
+
+	public int getType_code() {
+		return type_code;
 	}
-	public void setPro_type_code(String pro_type_code) {
-		this.pro_type_code = pro_type_code;
+	public void setType_code(int type_code) {
+		this.type_code = type_code;
 	}
 	public int getProduct_id() {
 		return product_id;

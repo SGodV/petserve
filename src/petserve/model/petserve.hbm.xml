@@ -1,13 +1,13 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="petserve.model">  
     <!-- 标识一个类的xml映射,name为类名,table为表名 -->  
-    <!--class name="BeanAppointment" table="appointment">
+    <class name="BeanAppointment" table="appointment">
     	<id name="appointment_id" type="integer">
     		<column name="appointment_id"></column>
-    		<generator class="assigned"></generator>
+    		<generator class="native"></generator>
     	</id>
-    	 <property name="user_id" type="integer">  
-            <column name="user_id" />  
+    	 <property name="pet_id" type="integer">  
+            <column name="pet_id" />  
         </property> 
         <property name="product_id" type="integer">  
             <column name="product_id" />  
@@ -23,15 +23,43 @@
         </property>
     </class>
     
+     <class name="BeanOrder_information" table="order_information">
+    	<id name="order_id" type="integer">
+    		<column name="order_id"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	 <property name="user_id" type="integer">  
+            <column name="user_id" />  
+        </property> 
+        <property name="product_id" type="integer">  
+            <column name="product_id" />  
+        </property>
+        <property name="begin_time" type="date">  
+            <column name="begin_time" />  
+        </property>  
+        <property name="end_time" type="date">  
+            <column name="end_time" />  
+        </property>
+         <property name="quantity" type="integer">  
+            <column name="quantity" />  
+        </property>
+         <property name="order_price" type="float">  
+            <column name="order_price" />  
+        </property>
+         <property name="transfer_state" type="integer">  
+            <column name="transfer_state" />  
+        </property>
+    </class>
+    
     <class name="BeanPet_information" table="pet_information">
     	<id name="pet_id" type="integer">
     		<column name="pet_id"></column>
-    		<generator class="assigned"></generator>
+    		<generator class="native"></generator>
     	</id>
     	<property name="user_id" type="integer">  
             <column name="user_id" />  
         </property>
-        <property name="pet_namer" type="string">  
+        <property name="pet_name" type="string">  
             <column name="pet_name" />  
         </property>
         <property name="name" type="string">  
@@ -40,10 +68,10 @@
         <property name="picture" type="binary">  
             <column name="picture" />  
         </property>
-        <property name="appointment_state" type="byte">  
+        <property name="appointment_state" type="short">  
             <column name="appointment_state" />  
         </property>
-        <property name="age" type="integer">  
+        <property name="age" type="short">  
             <column name="age" />  
         </property>
         <property name="healthy" type="short">  
@@ -54,10 +82,10 @@
     <class name="BeanProducts_information" table="products_information">
     	<id name="product_id" type="integer">
     		<column name="product_id"></column>
-    		<generator class="assigned"></generator>
+    		<generator class="native"></generator>
     	</id>
-    	<property name="pro_type_code" type="string">  
-            <column name="pro_type_code" />  
+    	<property name="type_code" type="integer">  
+            <column name="type_code" />  
         </property>	
         <property name="product_name" type="string">  
             <column name="product_name" />  
@@ -77,9 +105,9 @@
     </class>
     
     <class name="BeanProducts_types" table="products_types">
-    	<id name="type_code" type="string">
+    	<id name="type_code" type="integer">
     		<column name="type_code"></column>
-    		<generator class="assigned"></generator>
+    		<generator class="native"></generator>
     	</id>
     	<property name="type_name" type="string">  
             <column name="type_name" />  
@@ -87,12 +115,12 @@
         <property name="type_describe" type="string">  
             <column name="type_describe" />  
         </property>	
-    </class>-->
+    </class>
     
     <class name="BeanUser_information" table="user_information">
     	<id name="user_id" type="integer">
     		<column name="user_id"></column>
-    		<generator class="assigned"></generator>
+    		<generator class="native"></generator>
     	</id>
     	<property name="phone_number" type="string">  
             <column name="phone_number" />  
@@ -109,7 +137,7 @@
         <property name="other_contact" type="string">  
             <column name="other_contact" />  
         </property>
-        <property name="authority" type="integer">  
+        <property name="authority" type="short">  
             <column name="authority" />  
         </property>
     </class>

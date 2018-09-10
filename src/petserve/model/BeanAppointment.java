@@ -3,24 +3,24 @@ package petserve.model;
 import java.sql.Date;
 
 public class BeanAppointment {
-	private int user_id;
 	private int appointment_id;
+	private int pet_id;
 	private int product_id;
 	private Date order_begin_time;
 	private Date order_end_time;
 	private String circumstance;
 	
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
 	public int getAppointment_id() {
 		return appointment_id;
 	}
 	public void setAppointment_id(int appointment_id) {
 		this.appointment_id = appointment_id;
+	}
+	public int getPet_id() {
+		return pet_id;
+	}
+	public void setPet_id(int pet_id) {
+		this.pet_id = pet_id;
 	}
 	public int getProduct_id() {
 		return product_id;
@@ -46,4 +46,5 @@ public class BeanAppointment {
 	public void setCircumstance(String circumstance) {
 		this.circumstance = circumstance;
 	}
+	
 }

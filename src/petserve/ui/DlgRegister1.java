@@ -25,11 +25,11 @@ public class DlgRegister1 extends JDialog implements ActionListener {
 	private Button btnOk = new Button("注册");
 	private Button btnCancel = new Button("取消");
 	
-	private JLabel labelUser = new JLabel("    手机号：");
-	private JLabel labelPwd = new JLabel("        密码：");
-	private JLabel labelPwd2 = new JLabel("确认密码：");
-	private JLabel labelEmail = new JLabel("        邮箱：");
-	private JLabel labelName = new JLabel("        昵称：");
+	private JLabel labelUser = new JLabel("            手机号：");
+	private JLabel labelPwd = new JLabel("                 密码：");
+	private JLabel labelPwd2 = new JLabel("        确认密码：");
+	private JLabel labelEmail = new JLabel("                邮箱：");
+	private JLabel labelName = new JLabel("                昵称：");
 	private JLabel labelOContect = new JLabel("其他联系方式：");
 	private JTextField edtUserPhone = new JTextField(20);
 	private JPasswordField edtPwd = new JPasswordField(20);
