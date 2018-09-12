@@ -5,16 +5,24 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
+import petserve.model.BeanProducts_types;
 import petserve.model.BeanUser_information;
+import petserve.action.PetUtil;
+import petserve.model.BeanPet_information;
+import petserve.model.BeanProducts_information;
 import petserve.ui.pet.DlgAddPet;
 import petserve.ui.pet.DlgChangePetAge;
 import petserve.ui.pet.DlgChangePetName;
@@ -26,6 +34,7 @@ import petserve.ui.user.DlgChangePassword;
 import petserve.ui.user.DlgChangePhone;
 import petserve.ui.user.DlgChangeUserName;
 import petserve.ui.user.DlgCurrentUserInformation;
+import petserve.util.BaseException;
 
 public class FrmUserMain extends JFrame implements ActionListener{
 	private JMenuBar menuBar = new JMenuBar();
@@ -71,8 +80,28 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	
 	private JLabel titleLabel = new JLabel("宠物服务系统（用户版）");
 	
+	private Object tblPdtTypeTitle[]=BeanProducts_types.tblPdtTypeTitle;
+	private Object tblPdtTypeData[][];
+	DefaultTableModel tabPdtTypeModel=new DefaultTableModel();
+	private JTable dataTablePdtType=new JTable(tabPdtTypeModel);
+	
+	List<BeanProducts_types> allPdtType = null;
+	List<BeanProducts_information> allPdtIfm = null;
 	public void reloadMainTable() {
-		
+		try {
+			allPdtType = PetUtil.productTypeManager.loadProductType();
+		} catch (BaseException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		tblPdtTypeData =  new Object[allPdtType.size()][BeanProducts_types.tblPdtTypeTitle.length];
+		for(int i=0;i<allPdtType.size();i++){
+			for(int j=0;j<BeanProducts_types.tblPdtTypeTitle.length;j++)
+				tblPdtTypeData[i][j]=allPdtType.get(i).getCell(j);
+		}
+		tabPdtTypeModel.setDataVector(tblPdtTypeData,tblPdtTypeTitle);
+		this.dataTablePdtType.validate();
+		this.dataTablePdtType.repaint();
 	}
 	
 	public FrmUserMain() {

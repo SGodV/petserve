@@ -26,7 +26,7 @@ public class BeanProducts_types {
 		this.type_describe = type_describe;
 	}
 	
-	public static final String[] tblStepTitle={"类别序号","类别名称","类别描述"};
+	public static final String[] tblPdtTypeTitle={"类别序号","类别名称","类别描述"};
 	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
 	/**
 	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始
