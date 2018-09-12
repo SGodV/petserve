@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -39,49 +40,32 @@ import petserve.ui.user.DlgChangeUserName;
 import petserve.ui.user.DlgCurrentUserInformation;
 import petserve.util.BaseException;
 
-public class FrmUserMain extends JFrame implements ActionListener{
+public class FrmManagerMain extends JFrame implements ActionListener{
 	private JMenuBar menuBar = new JMenuBar();
 	
-	private JMenu userMenu = new JMenu("用户");
-	private JMenu petMenu = new JMenu("宠物");
-	private JMenu appointmentMenu = new JMenu("预约");
-	private JMenu orderMenu = new JMenu("我的订单");
+	private JMenu userMenu = new JMenu("菜单");
 	private JMenu buyMenu = new JMenu("商品及服务");
 
-	private JMenuItem userMenuItem_1 = new JMenuItem("我的信息");
-	private JMenuItem userMenuItem_2 = new JMenuItem("修改用户昵称");
-	private JMenuItem userMenuItem_3 = new JMenuItem("修改用户密码");
-	private JMenuItem userMenuItem_4 = new JMenuItem("修改手机号码");
-	private JMenuItem userMenuItem_5 = new JMenuItem("修改电子邮箱");
-	private JMenuItem userMenuItem_6 = new JMenuItem("修改其他联系方式");
-	
-	private JMenuItem petMenuItem_1 = new JMenuItem("我的宠物");
-	private JMenuItem petMenuItem_2 = new JMenuItem("新增宠物");
-	private JMenuItem petMenuItem_3 = new JMenuItem("删除宠物");
-	private JMenuItem petMenuItem_4 = new JMenuItem("修改宠物年龄");
-	private JMenuItem petMenuItem_5 = new JMenuItem("修改宠物昵称");
-	private JMenuItem petMenuItem_6 = new JMenuItem("修改宠物照片");
-	
-	private JMenuItem appointmentMenuItem_1 = new JMenuItem("新增预约");
-	private JMenuItem appointmentMenuItem_2 = new JMenuItem("修改预约时间");
-	private JMenuItem appointmentMenuItem_3 = new JMenuItem("预约信息查询");
-	private JMenuItem appointmentMenuItem_4 = new JMenuItem("取消预约");
-	
-	private JMenuItem orderMenuItem_1 = new JMenuItem("未支付订单");
-	private JMenuItem orderMenuItem_2 = new JMenuItem("进行中订单");
-	private JMenuItem orderMenuItem_3 = new JMenuItem("已完成订单");
-	private JMenuItem orderMenuItem_4 = new JMenuItem("修改商品种类");
-	private JMenuItem orderMenuItem_5 = new JMenuItem("修改商品价格");
+	private JMenuItem userMenuItem_1 = new JMenuItem("用户信息管理");
+	private JMenuItem userMenuItem_2 = new JMenuItem("宠物信息管理");
+	private JMenuItem userMenuItem_3 = new JMenuItem("预约信息管理");
+	private JMenuItem userMenuItem_4 = new JMenuItem("订单信息管理");
 
 	private JMenuItem buyMenuItem_1 = new JMenuItem("查看商品");
 	private JMenuItem buyMenuItem_2 = new JMenuItem("查看服务");
 	
+	private JButton addType = new JButton("新增商品类型");
+	private JButton addDetail = new JButton("新增商品条目");
+	private JButton cgPdtName = new JButton("更改商品名");
+	private JButton cgBrand = new JButton("更改品牌");
+	private JButton cgPrice = new JButton("更改售价");
+	private JButton cgPdtCode = new JButton("更改商品条码");
 	
 	private JPanel titlePane = new JPanel();
-//	private JPanel workPane = new JPanel();
+	private JPanel buttonPane = new JPanel();
 	private JPanel toolbar = new JPanel();
 	
-	private JLabel titleLabel = new JLabel("宠物服务系统（用户版）");
+	private JLabel titleLabel = new JLabel("宠物服务系统（管理员）");
 	
 	private Object tblPdtTypeTitle[]=BeanProducts_types.tblPdtTypeTitle;
 	private Object tblPdtTypeData[][];
@@ -129,38 +113,26 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		this.dataTablePdtIfm.repaint();
 	}
 	
-	public FrmUserMain() {
-//		this.setExtendedState(Frame.MAXIMIZED_BOTH);
+	public FrmManagerMain() {
+		//this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setTitle("宠物服务系统");	
 		setJMenuBar(menuBar);
 		this.menuBar.add(userMenu);
-		this.menuBar.add(petMenu);
-		this.menuBar.add(appointmentMenu);
-		this.menuBar.add(orderMenu);
 		this.menuBar.add(buyMenu);
 		this.userMenu.add(userMenuItem_1);
 		this.userMenu.add(userMenuItem_2);
 		this.userMenu.add(userMenuItem_3);
 		this.userMenu.add(userMenuItem_4);
-		this.userMenu.add(userMenuItem_5);
-		this.userMenu.add(userMenuItem_6);	
-		this.petMenu.add(petMenuItem_1);
-		this.petMenu.add(petMenuItem_2);
-		this.petMenu.add(petMenuItem_3);
-		this.petMenu.add(petMenuItem_4);
-		this.petMenu.add(petMenuItem_5);
-		this.petMenu.add(petMenuItem_6);	
-		this.appointmentMenu.add(appointmentMenuItem_1);
-		this.appointmentMenu.add(appointmentMenuItem_2);
-		this.appointmentMenu.add(appointmentMenuItem_3);
-		this.appointmentMenu.add(appointmentMenuItem_4);
-		this.orderMenu.add(orderMenuItem_1);
-		this.orderMenu.add(orderMenuItem_2);
-		this.orderMenu.add(orderMenuItem_3);
-		this.orderMenu.add(orderMenuItem_4);
-		this.orderMenu.add(orderMenuItem_5);
 		this.buyMenu.add(buyMenuItem_1);
 		this.buyMenu.add(buyMenuItem_2);
+		
+		this.buttonPane.add(addType);
+		this.buttonPane.add(addDetail);
+		this.buttonPane.add(cgPdtName);
+		this.buttonPane.add(cgBrand);
+		this.buttonPane.add(cgPrice);
+		this.buttonPane.add(cgPdtCode);
+		this.getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		
 		this.titlePane.add(titleLabel);
 		this.getContentPane().add(titlePane, BorderLayout.NORTH);
@@ -170,7 +142,7 @@ public class FrmUserMain extends JFrame implements ActionListener{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int i=FrmUserMain.this.dataTablePdtType.getSelectedRow();
+				int i=FrmManagerMain.this.dataTablePdtType.getSelectedRow();
 				if(i<0) {
 					return;
 				}
@@ -178,13 +150,13 @@ public class FrmUserMain extends JFrame implements ActionListener{
 			}
 	    	
 	    });
-	    
-	    this.getContentPane().add(new JScrollPane(this.dataTablePdtIfm), BorderLayout.EAST);
+
+		this.getContentPane().add(new JScrollPane(this.dataTablePdtIfm), BorderLayout.EAST);
 	    this.dataTablePdtIfm.addMouseListener(new MouseAdapter (){
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int i=FrmUserMain.this.dataTablePdtIfm.getSelectedRow();
+				int i=FrmManagerMain.this.dataTablePdtIfm.getSelectedRow();
 				if(i<0) {
 					return;
 				}
@@ -192,7 +164,6 @@ public class FrmUserMain extends JFrame implements ActionListener{
 			}
 	    	
 	    });
-	    
 	    
 	    this.reloadPdtTypeTable();
 		this.reloadPdtIfmTable();
@@ -210,23 +181,6 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		this.userMenuItem_2.addActionListener(this);
 		this.userMenuItem_3.addActionListener(this);
 		this.userMenuItem_4.addActionListener(this);
-		this.userMenuItem_5.addActionListener(this);
-		this.userMenuItem_6.addActionListener(this);
-		this.petMenuItem_1.addActionListener(this);
-		this.petMenuItem_2.addActionListener(this);
-		this.petMenuItem_3.addActionListener(this);
-		this.petMenuItem_4.addActionListener(this);
-		this.petMenuItem_5.addActionListener(this);
-		this.petMenuItem_6.addActionListener(this);
-		this.appointmentMenuItem_1.addActionListener(this);
-		this.appointmentMenuItem_2.addActionListener(this);
-		this.appointmentMenuItem_3.addActionListener(this);
-		this.appointmentMenuItem_4.addActionListener(this);
-		this.orderMenuItem_1.addActionListener(this);
-		this.orderMenuItem_2.addActionListener(this);
-		this.orderMenuItem_3.addActionListener(this);
-		this.orderMenuItem_4.addActionListener(this);
-		this.orderMenuItem_5.addActionListener(this);
 		this.buyMenuItem_1.addActionListener(this);
 		this.buyMenuItem_2.addActionListener(this);
 	}
@@ -251,45 +205,6 @@ public class FrmUserMain extends JFrame implements ActionListener{
 			DlgChangePhone dlgChangePhone = new DlgChangePhone();
 			dlgChangePhone.setVisible(true);
 		}
-		else if(e.getSource() == this.userMenuItem_5) {
-			DlgChangeEmail dlgChangeEmail = new DlgChangeEmail();
-			dlgChangeEmail.setVisible(true);
-		}
-		else if(e.getSource() == this.userMenuItem_6) {
-			DlgChangeOthContact dlgChangeOthContact = new DlgChangeOthContact();
-			dlgChangeOthContact.setVisible(true);
-		}
-		else if(e.getSource() == this.petMenuItem_1) {
-			
-		}
-		else if(e.getSource() == this.petMenuItem_2)
-			new DlgAddPet();
-		else if(e.getSource() == this.petMenuItem_3)
-			new DlgDeletePet();
-		else if(e.getSource() == this.petMenuItem_4)
-			new DlgChangePetAge();
-		else if(e.getSource() == this.petMenuItem_5)
-			new DlgChangePetName();
-		else if(e.getSource() == this.petMenuItem_6)
-			new DlgChangePetPicture();
-		else if(e.getSource() == this.appointmentMenuItem_1)
-			;
-		else if(e.getSource() == this.appointmentMenuItem_2)
-			;
-		else if(e.getSource() == this.appointmentMenuItem_3)
-			;
-		else if(e.getSource() == this.appointmentMenuItem_4)
-			;
-		else if(e.getSource() == this.orderMenuItem_1)
-			;
-		else if(e.getSource() == this.orderMenuItem_2)
-			;
-		else if(e.getSource() == this.orderMenuItem_3)
-			;
-		else if(e.getSource() == this.orderMenuItem_4)
-			;
-		else if(e.getSource() == this.orderMenuItem_5)
-			;
 	}
 
 }

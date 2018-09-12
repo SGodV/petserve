@@ -87,7 +87,7 @@ public class DlgLogin extends JDialog implements ActionListener {
 			if (BeanUser_information.currentLoginUser.getAuthority() == 1)
 				new FrmUserMain();
 			else if (BeanUser_information.currentLoginUser.getAuthority() == 0)
-				;
+				new FrmManagerMain();
 			else
 				System.exit(0);
 //			this.setVisible(false);
