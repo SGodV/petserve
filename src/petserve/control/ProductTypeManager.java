@@ -18,7 +18,7 @@ public class ProductTypeManager implements IProductTypeManager {
 		HibernateUtil hib=new HibernateUtil();
 		Session session=hib.getSession();
 		Transaction transaction = session.beginTransaction();
-		List<BeanProducts_types> result = session.createQuery("from BeanPlan").list();
+		List<BeanProducts_types> result = session.createQuery("from BeanProducts_types").list();
 		transaction.commit();
 		return result;
 	}

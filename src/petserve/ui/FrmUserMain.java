@@ -5,6 +5,8 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -14,6 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -87,7 +90,7 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	
 	List<BeanProducts_types> allPdtType = null;
 	List<BeanProducts_information> allPdtIfm = null;
-	public void reloadMainTable() {
+	public void reloadPdtTypeTable() {
 		try {
 			allPdtType = PetUtil.productTypeManager.loadProductType();
 		} catch (BaseException e) {
@@ -139,6 +142,22 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		
 		this.titlePane.add(titleLabel);
 		this.getContentPane().add(titlePane, BorderLayout.NORTH);
+		
+		this.getContentPane().add(new JScrollPane(this.dataTablePdtType), BorderLayout.WEST);
+	    this.dataTablePdtType.addMouseListener(new MouseAdapter (){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int i=FrmUserMain.this.dataTablePdtType.getSelectedRow();
+				if(i<0) {
+					return;
+				}
+				//FrmUserMain.this.reloadPlanStepTabel(i);
+			}
+	    	
+	    });
+	    
+	    this.reloadPdtTypeTable();
 		
 		this.setSize(800, 600);
 		
