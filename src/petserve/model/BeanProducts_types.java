@@ -1,5 +1,7 @@
 package petserve.model;
 
+import java.text.SimpleDateFormat;
+
 public class BeanProducts_types {
 	private int type_code;
 	private String type_name;
@@ -22,5 +24,21 @@ public class BeanProducts_types {
 	}
 	public void setType_describe(String type_describe) {
 		this.type_describe = type_describe;
+	}
+	
+	public static final String[] tblStepTitle={"类别序号","类别名称","类别描述"};
+	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
+	/**
+	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始
+	 */
+	public String getCell(int col){
+		if(col==0)
+			return String.valueOf(this.type_code);
+		else if(col==1)
+			return this.type_name;
+		else if(col==2)
+			return this.type_describe;
+		else
+			return "";
 	}
 }

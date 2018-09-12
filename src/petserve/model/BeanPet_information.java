@@ -1,5 +1,7 @@
 package petserve.model;
 
+import java.text.SimpleDateFormat;
+
 public class BeanPet_information {
 	private int user_id;
 	private int pet_id;
@@ -57,5 +59,31 @@ public class BeanPet_information {
 	}
 	public void setHealthy(short healthy) {
 		this.healthy = healthy;
+	}
+	
+	public static final String[] tblStepTitle={"宠物编号","宠物名称","宠物学名","图片","预约状态","年龄","健康状态"};
+	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
+	/**
+	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始
+	 */
+	public String getCell(int col){
+		if(col==0)
+			return String.valueOf(this.pet_id);
+		else if(col==1)
+			return this.pet_name;
+		else if(col==2)
+			return this.name;
+//	 	else if(col==3) return picture;
+		else if(col==4)
+			if (this.appointment_state == 0)
+				return "健康";
+			else if (this.appointment_state == 1)
+				return "不健康";
+			else
+				return "";
+		else if(col==5)
+			return String.valueOf(this.age);
+		else
+			return "";
 	}
 }

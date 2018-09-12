@@ -23,7 +23,7 @@ import petserve.action.PetUtil;
 import petserve.model.BeanUser_information;
 import petserve.util.BaseException;
 
-public class DlgLogin extends JDialog implements ActionListener{
+public class DlgLogin extends JDialog implements ActionListener {
 	private JPanel toolBar = new JPanel();
 	private JPanel workPane = new JPanel();
 	private JButton btnLogin = new JButton("µÇÂ½");

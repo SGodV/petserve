@@ -1,5 +1,7 @@
 package petserve.model;
 
+import java.text.SimpleDateFormat;
+
 public class BeanProducts_information {
 	private int type_code;
 	private int product_id;
@@ -51,5 +53,27 @@ public class BeanProducts_information {
 	}
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	
+	public static final String[] tblStepTitle={"商品编号","商品名称","品牌","定价","条码","售价"};
+	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
+	/**
+	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始
+	 */
+	public String getCell(int col){
+		if(col==0)
+			return String.valueOf(this.product_id);
+		else if(col==1)
+			return this.product_name;
+		else if(col==2)
+			return this.brand;
+		else if(col==3)
+			return String.valueOf(this.retail_price);
+		else if(col==4)
+			return this.product_code;
+		else if(col==5)
+			return String.valueOf(this.price);
+		else
+			return "";
 	}
 }

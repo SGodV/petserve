@@ -15,6 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import petserve.model.BeanUser_information;
+import petserve.ui.pet.DlgAddPet;
+import petserve.ui.pet.DlgChangePetAge;
+import petserve.ui.pet.DlgChangePetName;
+import petserve.ui.pet.DlgChangePetPicture;
+import petserve.ui.pet.DlgDeletePet;
 import petserve.ui.user.DlgChangeEmail;
 import petserve.ui.user.DlgChangeOthContact;
 import petserve.ui.user.DlgChangePassword;
@@ -29,7 +34,7 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	private JMenu petMenu = new JMenu("宠物");
 	private JMenu appointmentMenu = new JMenu("预约");
 	private JMenu orderMenu = new JMenu("我的订单");
-	private JMenu buyNewMenu = new JMenu("商品及服务");
+	private JMenu buyMenu = new JMenu("商品及服务");
 
 	private JMenuItem userMenuItem_1 = new JMenuItem("我的信息");
 	private JMenuItem userMenuItem_2 = new JMenuItem("修改用户昵称");
@@ -42,7 +47,7 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	private JMenuItem petMenuItem_2 = new JMenuItem("新增宠物");
 	private JMenuItem petMenuItem_3 = new JMenuItem("删除宠物");
 	private JMenuItem petMenuItem_4 = new JMenuItem("修改宠物年龄");
-	private JMenuItem petMenuItem_5 = new JMenuItem("修改宠物健康状态");
+	private JMenuItem petMenuItem_5 = new JMenuItem("修改宠物昵称");
 	private JMenuItem petMenuItem_6 = new JMenuItem("修改宠物照片");
 	
 	private JMenuItem appointmentMenuItem_1 = new JMenuItem("新增预约");
@@ -56,7 +61,8 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	private JMenuItem orderMenuItem_4 = new JMenuItem("修改商品种类");
 	private JMenuItem orderMenuItem_5 = new JMenuItem("修改商品价格");
 
-	
+	private JMenuItem buyMenuItem_1 = new JMenuItem("查看商品");
+	private JMenuItem buyMenuItem_2 = new JMenuItem("查看服务");
 	
 	
 	private JPanel titlePane = new JPanel();
@@ -75,8 +81,9 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		setJMenuBar(menuBar);
 		this.menuBar.add(userMenu);
 		this.menuBar.add(petMenu);
+		this.menuBar.add(appointmentMenu);
 		this.menuBar.add(orderMenu);
-		this.menuBar.add(buyNewMenu);
+		this.menuBar.add(buyMenu);
 		this.userMenu.add(userMenuItem_1);
 		this.userMenu.add(userMenuItem_2);
 		this.userMenu.add(userMenuItem_3);
@@ -98,6 +105,8 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		this.orderMenu.add(orderMenuItem_3);
 		this.orderMenu.add(orderMenuItem_4);
 		this.orderMenu.add(orderMenuItem_5);
+		this.buyMenu.add(buyMenuItem_1);
+		this.buyMenu.add(buyMenuItem_2);
 		
 		this.titlePane.add(titleLabel);
 		this.getContentPane().add(titlePane, BorderLayout.NORTH);
@@ -133,7 +142,8 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		this.orderMenuItem_3.addActionListener(this);
 		this.orderMenuItem_4.addActionListener(this);
 		this.orderMenuItem_5.addActionListener(this);
-		
+		this.buyMenuItem_1.addActionListener(this);
+		this.buyMenuItem_2.addActionListener(this);
 	}
 	
 
@@ -164,9 +174,37 @@ public class FrmUserMain extends JFrame implements ActionListener{
 			DlgChangeOthContact dlgChangeOthContact = new DlgChangeOthContact();
 			dlgChangeOthContact.setVisible(true);
 		}
-		else if(e.getSource() == this.orderMenuItem_1) ;
-		else if(e.getSource() == this.orderMenuItem_2) ;
-		else if(e.getSource() == this.orderMenuItem_3) ;
+		else if(e.getSource() == this.petMenuItem_1) {
+			
+		}
+		else if(e.getSource() == this.petMenuItem_2)
+			new DlgAddPet();
+		else if(e.getSource() == this.petMenuItem_3)
+			new DlgDeletePet();
+		else if(e.getSource() == this.petMenuItem_4)
+			new DlgChangePetAge();
+		else if(e.getSource() == this.petMenuItem_5)
+			new DlgChangePetName();
+		else if(e.getSource() == this.petMenuItem_6)
+			new DlgChangePetPicture();
+		else if(e.getSource() == this.appointmentMenuItem_1)
+			;
+		else if(e.getSource() == this.appointmentMenuItem_2)
+			;
+		else if(e.getSource() == this.appointmentMenuItem_3)
+			;
+		else if(e.getSource() == this.appointmentMenuItem_4)
+			;
+		else if(e.getSource() == this.orderMenuItem_1)
+			;
+		else if(e.getSource() == this.orderMenuItem_2)
+			;
+		else if(e.getSource() == this.orderMenuItem_3)
+			;
+		else if(e.getSource() == this.orderMenuItem_4)
+			;
+		else if(e.getSource() == this.orderMenuItem_5)
+			;
 	}
 
 }
