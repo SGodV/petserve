@@ -21,7 +21,23 @@ public class ProductTypeManager implements IProductTypeManager {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		List<BeanProducts_types> result = session.createQuery("from BeanProducts_types").list();
+		String hql = "from BeanProducts_types where pdt_serve=?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, (short) 0);
+		List<BeanProducts_types> result = qry.list();
+		transaction.commit();
+		return result;
+	}
+
+	@Override
+	public List<BeanProducts_types> loadServeType() throws BaseException {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSession();
+		Transaction transaction = session.beginTransaction();
+		String hql = "from BeanProducts_types where pdt_serve=?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, (short) 1);
+		List<BeanProducts_types> result = qry.list();
 		transaction.commit();
 		return result;
 	}
@@ -34,7 +50,7 @@ public class ProductTypeManager implements IProductTypeManager {
 		
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		String hql = "from BeanProducts_types where type_name=?";
+		String hql = "from BeanProducts_types where type_name=? and pdt_serve=0";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, typeName);
 		BeanProducts_types pt = new BeanProducts_types();
@@ -44,10 +60,34 @@ public class ProductTypeManager implements IProductTypeManager {
         BeanProducts_types pdtType = new BeanProducts_types();
 		pdtType.setType_name(typeName);
 		pdtType.setType_describe(typeDescribe);
+		pdtType.setPdt_serve((short) 0);
 		session.save(pdtType);
 		transaction.commit();
 	}
 
+	@Override
+	public void addServeType(String typeName, String typeDescribe) throws BaseException {
+		// TODO Auto-generated method stub
+		if(typeName==null || "".equals(typeName))
+			throw new BaseException("类型名称不能为空");
+		
+		Session session = HibernateUtil.getSession();
+		Transaction transaction = session.beginTransaction();
+		String hql = "from BeanProducts_types where type_name=? and pdt_serve=1";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, typeName);
+		BeanProducts_types pt = new BeanProducts_types();
+		pt = (BeanProducts_types)qry.uniqueResult();
+        if(pt!=null)
+			throw new BaseException("服务类型已经存在");
+        BeanProducts_types pdtType = new BeanProducts_types();
+		pdtType.setType_name(typeName);
+		pdtType.setType_describe(typeDescribe);
+		pdtType.setPdt_serve((short) 1);
+		session.save(pdtType);
+		transaction.commit();
+	}
+	
 	@Override
 	public void changePdtTypeName(int typeCode, String typeName) throws BaseException {
 		// TODO Auto-generated method stub

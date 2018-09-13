@@ -115,6 +115,9 @@
         <property name="type_describe" type="string">  
             <column name="type_describe" />  
         </property>	
+          <property name="pdt_serve" type="short">  
+            <column name="pdt_serve" />  
+        </property>	
     </class>
     
     <class name="BeanUser_information" table="user_information">

@@ -1,5 +1,7 @@
 package petserve.model;
 
+import java.text.SimpleDateFormat;
+
 public class BeanUser_information {
 	public static BeanUser_information currentLoginUser = null;
 	private int user_id;
@@ -51,5 +53,25 @@ public class BeanUser_information {
 	}
 	public void setAuthority(short authority) {
 		this.authority = authority;
+	}
+	
+	public static final String[] tblUserTitle={"用户序号","电话号码","用户昵称","用户邮箱","其他联系方式"};
+	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
+	/**
+	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始
+	 */
+	public String getCell(int col){
+		if(col==0)
+			return String.valueOf(this.user_id);
+		else if(col==1)
+			return this.phone_number;
+		else if(col==2)
+			return this.user_name;
+		else if(col==3)
+			return this.email;
+		else if(col==4)
+			return this.other_contact;
+		else
+			return "";
 	}
 }

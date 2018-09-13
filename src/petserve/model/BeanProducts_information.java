@@ -55,7 +55,7 @@ public class BeanProducts_information {
 		this.price = price;
 	}
 	
-	public static final String[] tblPdtIfmTitle={"商品编号","商品名称","品牌","定价","条码","售价"};
+	public static final String[] tblPdtIfmTitle={"编号","名称","品牌","定价","条码","售价"};
 	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
 	/**
 	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始

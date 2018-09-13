@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,8 +35,13 @@ import petserve.ui.pet.DlgChangePetPicture;
 import petserve.ui.pet.DlgDeletePet;
 import petserve.ui.product.DlgAddPdtIfm;
 import petserve.ui.product.DlgAddPdtType;
+import petserve.ui.product.DlgCgBrand;
+import petserve.ui.product.DlgCgPdtCode;
+import petserve.ui.product.DlgCgPdtName;
+import petserve.ui.product.DlgCgPrice;
 import petserve.ui.product.DlgCgTypeDetail;
 import petserve.ui.product.DlgCgTypeName;
+import petserve.ui.product.DlgServeView;
 import petserve.ui.user.DlgChangeEmail;
 import petserve.ui.user.DlgChangeOthContact;
 import petserve.ui.user.DlgChangePassword;
@@ -51,14 +57,14 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	private JMenu buyMenu = new JMenu("商品及服务");
 
 	private JMenuItem userMenuItem_1 = new JMenuItem("用户信息管理");
-	private JMenuItem userMenuItem_2 = new JMenuItem("宠物信息管理");
-	private JMenuItem userMenuItem_3 = new JMenuItem("预约信息管理");
-	private JMenuItem userMenuItem_4 = new JMenuItem("订单信息管理");
+	private JMenuItem userMenuItem_2 = new JMenuItem("服务信息管理");
 
 //	private JMenuItem buyMenuItem_1 = new JMenuItem("查看商品");
 //	private JMenuItem buyMenuItem_2 = new JMenuItem("查看服务");
 	
-	private JButton slDetail = new JButton("查看商品条目");
+	private JLabel label = new JLabel("输入商品名");
+	private JTextField jTextField = new JTextField(20);
+	private JButton jButton = new JButton("查询");
 	private JButton addType = new JButton("新增商品类型");
 	private JButton addDetail = new JButton("新增商品条目");
 	private JButton cgTypeName = new JButton("更改商品类型名称");
@@ -72,10 +78,10 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	
 	
 	private JPanel titlePane = new JPanel();
-//	private JPanel workPane = new JPanel();
+	private JPanel workPane = new JPanel();
 	private JPanel toolbar = new JPanel();
 	
-	private JLabel titleLabel = new JLabel("宠物服务系统（管理员）");
+	private JLabel titleLabel = new JLabel("商品浏览");
 	
 	private Object tblPdtTypeTitle[]=BeanProducts_types.tblPdtTypeTitle;
 	private Object tblPdtTypeData[][];
@@ -85,10 +91,12 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	private Object tblPdtIfmTitle[]=BeanProducts_information.tblPdtIfmTitle;
 	private Object tblPdtIfmData[][];
 	DefaultTableModel tabPdtIfmModel=new DefaultTableModel();
-	private JTable dataTablePdtIfm=new JTable(tabPdtIfmModel);
+	public JTable dataTablePdtIfm=new JTable(tabPdtIfmModel);
 	
 	public List<BeanProducts_types> allPdtType = null;
-	List<BeanProducts_information> allPdtIfm = null;
+	public List<BeanProducts_information> allPdtIfm = null;
+	
+	public static DlgServeView dlgServeView = new DlgServeView();
 	public void reloadPdtTypeTable() {
 		try {
 			allPdtType = PetUtil.productTypeManager.loadProductType();
@@ -125,16 +133,20 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	
 	public FrmManagerMain() {
 		//this.setExtendedState(Frame.MAXIMIZED_BOTH);
-		this.setTitle("宠物服务系统");	
+		this.setTitle("宠物服务系统（管理员）");	
 		setJMenuBar(menuBar);
 		this.menuBar.add(userMenu);
-		this.menuBar.add(buyMenu);
+		//this.menuBar.add(buyMenu);
 		this.userMenu.add(userMenuItem_1);
 		this.userMenu.add(userMenuItem_2);
-		this.userMenu.add(userMenuItem_3);
-		this.userMenu.add(userMenuItem_4);
+//		this.userMenu.add(userMenuItem_3);
+//		this.userMenu.add(userMenuItem_4);
 		
-		this.toolbar.add(slDetail);
+		this.workPane.add(label);
+		this.workPane.add(jTextField);
+		this.workPane.add(jButton);
+		this.getContentPane().add(workPane, BorderLayout.CENTER);
+		
 		this.toolbar.add(addType);
 		this.toolbar.add(cgTypeName);
 		this.toolbar.add(cgTypeDsc);
@@ -178,9 +190,8 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 		
 		this.userMenuItem_1.addActionListener(this);
 		this.userMenuItem_2.addActionListener(this);
-		this.userMenuItem_3.addActionListener(this);
-		this.userMenuItem_4.addActionListener(this);
-		this.slDetail.addActionListener(this);
+//		this.userMenuItem_3.addActionListener(this);
+//		this.userMenuItem_4.addActionListener(this);
 		this.addType.addActionListener(this);
 		this.cgTypeName.addActionListener(this);
 		this.cgTypeDsc.addActionListener(this);
@@ -191,6 +202,7 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 		this.cgPdtCode.addActionListener(this);
 		this.deleteType.addActionListener(this);
 		this.deleteDetail.addActionListener(this);
+		this.jButton.addActionListener(this);
 	}
 	
 
@@ -198,23 +210,25 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == this.userMenuItem_1) {
-			DlgCurrentUserInformation dlgCurrentUserInformation = new DlgCurrentUserInformation();
-			dlgCurrentUserInformation.setVisible(true);
+			
 		}
 		else if(e.getSource() == this.userMenuItem_2) {
-			DlgChangeUserName dlgChangeUserName = new DlgChangeUserName();
-			dlgChangeUserName.setVisible(true);
+			dlgServeView.setVisible(true);
 		}
-		else if(e.getSource() == this.userMenuItem_3) {
-			DlgChangePassword dlgChangePassword = new DlgChangePassword();
-			dlgChangePassword.setVisible(true);
-		}
-		else if(e.getSource() == this.userMenuItem_4) {
-			DlgChangePhone dlgChangePhone = new DlgChangePhone();
-			dlgChangePhone.setVisible(true);
-		}
-		else if(e.getSource() == this.slDetail) {
-			
+//		else if(e.getSource() == this.userMenuItem_3) {
+//			
+//		}
+//		else if(e.getSource() == this.userMenuItem_4) {
+//			
+//		}
+		else if(e.getSource() == this.jButton) {
+			try {
+				PetUtil.productInformationManager.selectProductInformation(this.jTextField.getText());
+			} catch (BaseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else if(e.getSource() == this.addType) {
 			DlgAddPdtType dlgAddPdtType = new DlgAddPdtType();
@@ -229,7 +243,7 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, e1.getMessage(), "请选择要修改的类别",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
@@ -245,7 +259,7 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, e1.getMessage(), "请选择要修改的类别",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
@@ -261,7 +275,7 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, e1.getMessage(), "请选择商品所属类别",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
@@ -269,16 +283,65 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 			dlgAddPdtIfm.setVisible(true);
 		}
 		else if(e.getSource() == this.cgPdtName) {
+			int i;
+			try {
+				i = DlgLogin.frmManagerMain.dataTablePdtIfm.getSelectedRow();
+				if(i<0)
+					throw new BaseException("请选择商品条目");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			
+			DlgCgPdtName dlgCgPdtName = new DlgCgPdtName();
+			dlgCgPdtName.setVisible(true);
 		}
 		else if(e.getSource() == this.cgBrand) {
-			
+			int i;
+			try {
+				i = DlgLogin.frmManagerMain.dataTablePdtIfm.getSelectedRow();
+				if(i<0)
+					throw new BaseException("请选择商品条目");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			DlgCgBrand dlgCgBrand = new DlgCgBrand();
+			dlgCgBrand.setVisible(true);
 		}
 		else if(e.getSource() == this.cgPrice) {
-			
+			int i;
+			try {
+				i = DlgLogin.frmManagerMain.dataTablePdtIfm.getSelectedRow();
+				if(i<0)
+					throw new BaseException("请选择商品条目");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			DlgCgPrice dlgCgPrice = new DlgCgPrice();
+			dlgCgPrice.setVisible(true);
 		}
 		else if(e.getSource() == this.cgPdtCode) {
-			
+			int i;
+			try {
+				i = DlgLogin.frmManagerMain.dataTablePdtIfm.getSelectedRow();
+				if(i<0)
+					throw new BaseException("请选择商品条目");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			DlgCgPdtCode dlgCgPdtCode = new DlgCgPdtCode();
+			dlgCgPdtCode.setVisible(true);
 		}
 		else if(e.getSource() == this.deleteType) {
 			try {

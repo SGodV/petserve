@@ -6,6 +6,7 @@ public class BeanProducts_types {
 	private int type_code;
 	private String type_name;
 	private String type_describe;
+	private short pdt_serve;
 	
 	public int getType_code() {
 		return type_code;
@@ -25,7 +26,13 @@ public class BeanProducts_types {
 	public void setType_describe(String type_describe) {
 		this.type_describe = type_describe;
 	}
-	
+	public short getPdt_serve() {
+		return pdt_serve;
+	}
+	public void setPdt_serve(short pdt_serve) {
+		this.pdt_serve = pdt_serve;
+	}
+
 	public static final String[] tblPdtTypeTitle={"类别序号","类别名称","类别描述"};
 	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
 	/**
