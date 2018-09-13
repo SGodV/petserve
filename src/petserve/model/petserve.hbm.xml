@@ -21,6 +21,9 @@
         <property name="circumstance" type="string">  
             <column name="circumstance" />  
         </property>
+           <property name="user_id" type="integer">  
+            <column name="user_id" />  
+        </property>
     </class>
     
      <class name="BeanOrder_information" table="order_information">

@@ -29,10 +29,10 @@ import petserve.action.PetUtil;
 import petserve.model.BeanPet_information;
 import petserve.model.BeanProducts_information;
 import petserve.ui.pet.DlgAddPet;
-import petserve.ui.pet.DlgChangePetAge;
-import petserve.ui.pet.DlgChangePetName;
+import petserve.ui.pet.DlgChangePetAgeM;
+import petserve.ui.pet.DlgChangePetNameM;
 import petserve.ui.pet.DlgChangePetPicture;
-import petserve.ui.pet.DlgDeletePet;
+import petserve.ui.pet.DlgDeletePetU;
 import petserve.ui.product.DlgAddPdtIfm;
 import petserve.ui.product.DlgAddPdtType;
 import petserve.ui.product.DlgCgBrand;
@@ -97,8 +97,8 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	public List<BeanProducts_types> allPdtType = null;
 	public List<BeanProducts_information> allPdtIfm = null;
 	
-	public static DlgServeView dlgServeView;
-	public static DlgManagerUser dlgManagerUser;
+	public static DlgServeView dlgServeView = new DlgServeView();
+	public static DlgManagerUser dlgManagerUser = new DlgManagerUser();
 	
 	public void reloadPdtTypeTable() {
 		try {
@@ -224,11 +224,11 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == this.userMenuItem_1) {
-			dlgManagerUser = new DlgManagerUser();
+//			dlgManagerUser = new DlgManagerUser();
 			dlgManagerUser.setVisible(true);
 		}
 		else if(e.getSource() == this.userMenuItem_2) {
-			dlgServeView = new DlgServeView();
+//			dlgServeView = new DlgServeView();
 			dlgServeView.setVisible(true);
 		}
 //		else if(e.getSource() == this.userMenuItem_3) {
@@ -244,6 +244,7 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 			DlgLogin.frmManagerMain.reloadPdtIfmTable();
 		}

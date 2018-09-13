@@ -209,7 +209,7 @@ public class UserManager implements IUserManager {
 	public List<BeanUser_information> selectUser(String name) throws BaseException {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSession();
-		String hql = "from BeanUser_information where user_name=? and authority=1";
+		String hql = "from BeanUser_information where user_name like ? and authority=1";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, "%"+name+"%");
 		List<BeanUser_information> result = qry.list();

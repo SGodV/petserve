@@ -5,45 +5,36 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import petserve.action.PetUtil;
-import petserve.ui.user.DlgManagerUser;
 import petserve.util.BaseException;
 
-public class DlgChangePetHealthy extends JDialog implements ActionListener{
-	
+public class DlgDeletePetU extends JDialog implements ActionListener {
 	private JPanel toolBar = new JPanel();
 	private JPanel workPane = new JPanel();
 	
-	private JButton btnConfirm = new JButton("修改");
+	private JButton btnConfirm = new JButton("确认删除");
 	private JButton btnClose = new JButton("关闭");
 	
-	private JLabel label2 = new JLabel("健康状态：");
-	private JRadioButton s1=new JRadioButton("健康");
-	private JRadioButton s2=new JRadioButton("不健康",true);
-	
-	private ButtonGroup bg = new ButtonGroup();
+	private JLabel label1 = new JLabel("宠物编号：");
+	private JTextField edt1 = new JTextField(20);
+	private JTextField edt2 = new JTextField(20);
 
-	public DlgChangePetHealthy() {
+	public DlgDeletePetU() {
 		// TODO Auto-generated constructor stub
-		this.setTitle("修改宠物健康状态");
-		this.setVisible(true);
+		this.setTitle("删除宠物");
+		
 		this.toolBar.add(btnConfirm);
 		this.toolBar.add(btnClose);
 		this.getContentPane().add(toolBar, BorderLayout.SOUTH);
-		this.workPane.add(label2);
-		this.workPane.add(s1);
-		this.workPane.add(s2);
-		this.bg.add(s1);
-		this.bg.add(s2);
+		this.workPane.add(label1);
+		this.workPane.add(edt1);
 		this.getContentPane().add(workPane, BorderLayout.CENTER);
 		this.setSize(320, 140);
 		
@@ -64,15 +55,9 @@ public class DlgChangePetHealthy extends JDialog implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnConfirm) {
 			try {
-				short healthy = (short) -1;
-				if (s1.isSelected())
-					healthy = (short) 0;
-				else if(s2.isSelected())
-					healthy = (short) 1;
-				PetUtil.petManager.changePetHealthy(DlgManagerUser.dlgManagerPet.allPet.get(DlgManagerUser.dlgManagerPet.dataPetType.getSelectedRow()).getPet_id(), healthy);
+				PetUtil.petManager.deletePet(Integer.parseInt(this.edt1.getText()));
 				this.setVisible(false);
-				JOptionPane.showMessageDialog(null, "修改成功", "提示", JOptionPane.PLAIN_MESSAGE);
-				DlgManagerUser.dlgManagerPet.reloadPetTable();
+				JOptionPane.showMessageDialog(null, "删除成功", "提示", JOptionPane.PLAIN_MESSAGE);
 			} catch (BaseException e1) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);

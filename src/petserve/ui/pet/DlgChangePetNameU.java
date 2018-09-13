@@ -5,45 +5,37 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import petserve.action.PetUtil;
+import petserve.ui.FrmUserMain;
 import petserve.ui.user.DlgManagerUser;
 import petserve.util.BaseException;
 
-public class DlgChangePetHealthy extends JDialog implements ActionListener{
-	
+public class DlgChangePetNameU extends JDialog implements ActionListener {
 	private JPanel toolBar = new JPanel();
 	private JPanel workPane = new JPanel();
 	
 	private JButton btnConfirm = new JButton("ÐÞ¸Ä");
 	private JButton btnClose = new JButton("¹Ø±Õ");
 	
-	private JLabel label2 = new JLabel("½¡¿µ×´Ì¬£º");
-	private JRadioButton s1=new JRadioButton("½¡¿µ");
-	private JRadioButton s2=new JRadioButton("²»½¡¿µ",true);
-	
-	private ButtonGroup bg = new ButtonGroup();
+	private JLabel label2 = new JLabel("ÐÂêÇ³Æ£º");
+	private JTextField edt2 = new JTextField(20);
 
-	public DlgChangePetHealthy() {
+	public DlgChangePetNameU() {
 		// TODO Auto-generated constructor stub
-		this.setTitle("ÐÞ¸Ä³èÎï½¡¿µ×´Ì¬");
-		this.setVisible(true);
+		this.setTitle("ÐÞ¸Ä³èÎïêÇ³Æ");
+		
 		this.toolBar.add(btnConfirm);
 		this.toolBar.add(btnClose);
 		this.getContentPane().add(toolBar, BorderLayout.SOUTH);
 		this.workPane.add(label2);
-		this.workPane.add(s1);
-		this.workPane.add(s2);
-		this.bg.add(s1);
-		this.bg.add(s2);
+		this.workPane.add(edt2);
 		this.getContentPane().add(workPane, BorderLayout.CENTER);
 		this.setSize(320, 140);
 		
@@ -64,15 +56,10 @@ public class DlgChangePetHealthy extends JDialog implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnConfirm) {
 			try {
-				short healthy = (short) -1;
-				if (s1.isSelected())
-					healthy = (short) 0;
-				else if(s2.isSelected())
-					healthy = (short) 1;
-				PetUtil.petManager.changePetHealthy(DlgManagerUser.dlgManagerPet.allPet.get(DlgManagerUser.dlgManagerPet.dataPetType.getSelectedRow()).getPet_id(), healthy);
+				PetUtil.petManager.changePetName(FrmUserMain.dlgUserPet.allPet.get(FrmUserMain.dlgUserPet.dataPetType.getSelectedRow()).getPet_id(), this.edt2.getText());
 				this.setVisible(false);
 				JOptionPane.showMessageDialog(null, "ÐÞ¸Ä³É¹¦", "ÌáÊ¾", JOptionPane.PLAIN_MESSAGE);
-				DlgManagerUser.dlgManagerPet.reloadPetTable();
+				FrmUserMain.dlgUserPet.reloadPetTable();
 			} catch (BaseException e1) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);

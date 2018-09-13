@@ -1,6 +1,7 @@
 package petserve.model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class BeanOrder_information {
 	private int user_id;
@@ -59,5 +60,32 @@ public class BeanOrder_information {
 	}
 	public void setTransfer_state(int transfer_state) {
 		this.transfer_state = transfer_state;
+	}
+	public static final String[] tblOrderTitle={"订单编号","商品编号","开始时间","完成时间","购买数量","订单价格","订单状态"};
+	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
+	/**
+	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始
+	 */
+	public String getCell(int col){
+		if(col==0)
+			return String.valueOf(this.order_id);
+		else if(col==1)
+			return String.valueOf(this.product_id);
+		else if(col==2)
+			return sdf.format(this.begin_time);
+		else if(col==3)
+			return sdf.format(this.end_time);
+		if(col==4)
+			return String.valueOf(this.quantity);
+		else if(col==5)
+			return String.valueOf(this.order_price);
+		else if(col==6) {
+			if(transfer_state==0)
+				return "进行中";
+			else if(transfer_state==1)
+				return "已完成";
+			else return "";
+		}
+		else return "";
 	}
 }

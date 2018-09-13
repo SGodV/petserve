@@ -21,6 +21,8 @@ import petserve.control.PetManager;
 import petserve.model.BeanProducts_types;
 import petserve.model.BeanUser_information;
 import petserve.ui.FrmManagerMain;
+import petserve.ui.orderandappointment.DlgUserAppointment;
+import petserve.ui.orderandappointment.DlgUserOrder;
 import petserve.ui.pet.DlgManagerPet;
 import petserve.util.BaseException;
 
@@ -43,16 +45,26 @@ public class DlgManagerUser extends JDialog implements ActionListener {
 	
 	public List<BeanUser_information> allUser = null;
 	public static DlgManagerPet dlgManagerPet;
-	public void reloadPdtTypeTable() {
+	public void loadUserTable() {
 		try {
 			allUser = PetUtil.userManager.loadUser();
 		} catch (BaseException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		tblUserData =  new Object[allUser.size()][BeanProducts_types.tblPdtTypeTitle.length];
+		tblUserData =  new Object[allUser.size()][BeanUser_information.tblUserTitle.length];
 		for(int i=0;i<allUser.size();i++){
-			for(int j=0;j<BeanProducts_types.tblPdtTypeTitle.length;j++)
+			for(int j=0;j<BeanUser_information.tblUserTitle.length;j++)
+				tblUserData[i][j]=allUser.get(i).getCell(j);
+		}
+		tabUserModel.setDataVector(tblUserData,tblUserTitle);
+		this.dataUserType.validate();
+		this.dataUserType.repaint();
+	}
+	public void reloadUserTable() {
+		tblUserData =  new Object[allUser.size()][BeanUser_information.tblUserTitle.length];
+		for(int i=0;i<allUser.size();i++){
+			for(int j=0;j<BeanUser_information.tblUserTitle.length;j++)
 				tblUserData[i][j]=allUser.get(i).getCell(j);
 		}
 		tabUserModel.setDataVector(tblUserData,tblUserTitle);
@@ -71,7 +83,7 @@ public class DlgManagerUser extends JDialog implements ActionListener {
 		this.getContentPane().add(toolBar, BorderLayout.SOUTH);
 		this.getContentPane().add(new JScrollPane(this.dataUserType), BorderLayout.CENTER);
 		
-		this.reloadPdtTypeTable();
+		this.loadUserTable();
 		this.setSize(1600, 900);
 		
 		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -92,11 +104,12 @@ public class DlgManagerUser extends JDialog implements ActionListener {
 		if(e.getSource() == userButton) {
 			try {
 				allUser = PetUtil.userManager.selectUser(this.jTextField.getText());
-				this.reloadPdtTypeTable();
+				FrmManagerMain.dlgManagerUser.reloadUserTable();
 			} catch (BaseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 		}
 		else if(e.getSource() == petButton) {
@@ -108,26 +121,34 @@ public class DlgManagerUser extends JDialog implements ActionListener {
 				} catch (BaseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 		}
 		else if(e.getSource() == orderButton) {
 			try {
 				if(FrmManagerMain.dlgManagerUser.dataUserType.getSelectedRow() < 0)
 					throw new BaseException("ÇëÑ¡ÔñÓÃ»§");
-				//new PetManager();
+				DlgUserOrder dlgUserOrder = new DlgUserOrder();
+				dlgUserOrder.setVisible(true);
 			} catch (BaseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 		}
 		else if(e.getSource() == appoimentButton) {
 			try {
 				if(FrmManagerMain.dlgManagerUser.dataUserType.getSelectedRow() < 0)
 					throw new BaseException("ÇëÑ¡ÔñÓÃ»§");
-				//new PetManager();
+				DlgUserAppointment dlgUserAppointment = new DlgUserAppointment();
+				dlgUserAppointment.setVisible(true);
 			} catch (BaseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 		}
 	}

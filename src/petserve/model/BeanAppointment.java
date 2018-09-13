@@ -1,6 +1,7 @@
 package petserve.model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class BeanAppointment {
 	private int appointment_id;
@@ -9,6 +10,7 @@ public class BeanAppointment {
 	private Date order_begin_time;
 	private Date order_end_time;
 	private String circumstance;
+	private int user_id;
 	
 	public int getAppointment_id() {
 		return appointment_id;
@@ -46,5 +48,28 @@ public class BeanAppointment {
 	public void setCircumstance(String circumstance) {
 		this.circumstance = circumstance;
 	}
-	
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	public static final String[] tblAppointmentTitle={"预约编号","宠物编号","开始时间","完成时间","状态"};
+	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
+	/**
+	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始
+	 */
+	public String getCell(int col){
+		if(col==0)
+			return String.valueOf(this.appointment_id);
+		else if(col==1)
+			return String.valueOf(this.pet_id);
+		else if(col==2)
+			return sdf.format(this.order_begin_time);
+		else if(col==3)
+			return sdf.format(this.order_end_time);
+		else if(col==4)
+			return this.circumstance;
+		else return "";
+	}
 }

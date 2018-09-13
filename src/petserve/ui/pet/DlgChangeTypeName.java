@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import petserve.action.PetUtil;
+import petserve.ui.user.DlgManagerUser;
 import petserve.util.BaseException;
 
 public class DlgChangeTypeName extends JDialog implements ActionListener {
@@ -22,9 +23,7 @@ public class DlgChangeTypeName extends JDialog implements ActionListener {
 	private JButton btnConfirm = new JButton("修改");
 	private JButton btnClose = new JButton("关闭");
 	
-	private JLabel label1 = new JLabel("宠物编号：");
 	private JLabel label2 = new JLabel("新学名：");
-	private JTextField edt1 = new JTextField(20);
 	private JTextField edt2 = new JTextField(20);
 
 	public DlgChangeTypeName() {
@@ -34,8 +33,6 @@ public class DlgChangeTypeName extends JDialog implements ActionListener {
 		this.toolBar.add(btnConfirm);
 		this.toolBar.add(btnClose);
 		this.getContentPane().add(toolBar, BorderLayout.SOUTH);
-		this.workPane.add(label1);
-		this.workPane.add(edt1);
 		this.workPane.add(label2);
 		this.workPane.add(edt2);
 		this.getContentPane().add(workPane, BorderLayout.CENTER);
@@ -58,9 +55,10 @@ public class DlgChangeTypeName extends JDialog implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnConfirm) {
 			try {
-				PetUtil.petManager.changeTypeName(Integer.parseInt(this.edt1.getText()), this.edt2.getText());
+				PetUtil.petManager.changeTypeName(DlgManagerUser.dlgManagerPet.allPet.get(DlgManagerUser.dlgManagerPet.dataPetType.getSelectedRow()).getPet_id(), this.edt2.getText());
 				this.setVisible(false);
 				JOptionPane.showMessageDialog(null, "修改成功", "提示", JOptionPane.PLAIN_MESSAGE);
+				DlgManagerUser.dlgManagerPet.reloadPetTable();
 			} catch (BaseException e1) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);

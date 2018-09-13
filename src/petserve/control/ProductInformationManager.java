@@ -124,7 +124,7 @@ public class ProductInformationManager implements IProductInformationManager {
 		// TODO Auto-generated method stub
 		Session session=HibernateUtil.getSession();
 		String hql = "from BeanProducts_information a, BeanProducts_types b "
-				+ "where a.type_code=b.type_code and b.pdt_serve=? and a.product_name=?"; 
+				+ "where a.type_code=b.type_code and b.pdt_serve like ? and a.product_name=?"; 
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, 0);
 		qry.setParameter(0, "%"+name+"%");
@@ -137,7 +137,7 @@ public class ProductInformationManager implements IProductInformationManager {
 		// TODO Auto-generated method stub
 		Session session=HibernateUtil.getSession();
 		String hql = "from BeanProducts_information a, BeanProducts_types b "
-				+ "where a.type_code=b.type_code and b.pdt_serve=? and a.product_name=?"; 
+				+ "where a.type_code=b.type_code and b.pdt_serve like ? and a.product_name=?"; 
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, 1);
 		qry.setParameter(0, "%"+name+"%");

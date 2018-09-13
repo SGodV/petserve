@@ -61,7 +61,7 @@ public class BeanPet_information {
 		this.healthy = healthy;
 	}
 	
-	public static final String[] tblStepTitle={"宠物编号","宠物名称","宠物学名","图片","预约状态","年龄","健康状态"};
+	public static final String[] tblPetTitle={"宠物编号","宠物名称","宠物学名","图片","预约状态","年龄","健康状态"};
 	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
 	/**
 	 * 请自行根据javabean的设计修改本函数代码，col表示界面表格中的列序号，0开始
@@ -73,7 +73,8 @@ public class BeanPet_information {
 			return this.pet_name;
 		else if(col==2)
 			return this.name;
-//	 	else if(col==3) return picture;
+	 	else if(col==3)
+	 		return String.valueOf(picture);
 		else if(col==4)
 			if (this.appointment_state == 0)
 				return "健康";
