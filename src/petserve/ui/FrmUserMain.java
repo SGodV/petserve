@@ -114,7 +114,7 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	
 	public void reloadPdtIfmTable() {
 		try {
-			allPdtIfm = PetUtil.productInformationManager.loadProductInformation();
+			allPdtIfm = PetUtil.productInformationManager.loadProductInformation(1);
 		} catch (BaseException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
 			return;
@@ -203,8 +203,7 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		this.setLocation((int) (width - this.getWidth()) / 2,
 				(int) (height - this.getHeight()) / 2);
-		
-		this.setVisible(true);
+
 		
 		this.userMenuItem_1.addActionListener(this);
 		this.userMenuItem_2.addActionListener(this);

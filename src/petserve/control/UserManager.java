@@ -31,13 +31,13 @@ public class UserManager implements IUserManager {
 			throw new BaseException("请输入正确的邮箱");
 		
 		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
 		String hql = "from BeanUser_information where phone_number=?";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, userPhone);
         BeanUser_information u = (BeanUser_information)qry.uniqueResult();
         if(u!=null)
 			throw new BaseException("用户已经存在");
+    	Transaction transaction = session.beginTransaction();
 		BeanUser_information cu = new BeanUser_information();
 		cu.setPhone_number(userPhone);
 		cu.setPassword(pwd);
@@ -61,13 +61,13 @@ public class UserManager implements IUserManager {
 			throw new BaseException("两次输入的密码要一致");
 		
 		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
 		String hql="from BeanUser_information where phone_number=?";
 		Query qry=session.createQuery(hql);
 		qry.setParameter(0, adminPhone);
         BeanUser_information u=(BeanUser_information)qry.uniqueResult();
         if(u!=null)
 			throw new BaseException("用户已经存在");
+		Transaction transaction = session.beginTransaction();
 		BeanUser_information cu = new BeanUser_information();
 		cu.setPhone_number(adminPhone);
 		cu.setPassword(pwd);
@@ -92,18 +92,11 @@ public class UserManager implements IUserManager {
         String hql="from BeanUser_information where phone_number=?";
         Query qry=session.createQuery(hql);
         qry.setParameter(0, userid);
-        BeanUser_information u;
-		try {
-			u = (BeanUser_information)qry.uniqueResult();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-			throw new BaseException("找不到用户");
-		}
-
+        BeanUser_information u = new BeanUser_information();
+		u = (BeanUser_information)qry.uniqueResult();
 		if(u==null)
 			throw new BaseException("用户不存在");
-		BeanUser_information us=new BeanUser_information();
+		BeanUser_information us = new BeanUser_information();
 		us.setPhone_number(userid);
 		us.setPassword(u.getPassword());
 		if(!us.getPassword().equals(pwd))
@@ -132,7 +125,7 @@ public class UserManager implements IUserManager {
 		
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class,BeanUser_information.currentLoginUser.getUser_id());
+		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class, BeanUser_information.currentLoginUser.getUser_id());
 		u.setPassword(newPwd);
 		session.update(u);
 		BeanUser_information.currentLoginUser = (BeanUser_information)session.get(BeanUser_information.class, u.getUser_id());
@@ -147,7 +140,7 @@ public class UserManager implements IUserManager {
 		
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class,BeanUser_information.currentLoginUser.getUser_id());
+		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class, BeanUser_information.currentLoginUser.getUser_id());
 		u.setUser_name(userName);
 		session.update(u);
 		BeanUser_information.currentLoginUser = (BeanUser_information)session.get(BeanUser_information.class, u.getUser_id());
@@ -162,7 +155,7 @@ public class UserManager implements IUserManager {
 		
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class,BeanUser_information.currentLoginUser.getUser_id());
+		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class, BeanUser_information.currentLoginUser.getUser_id());
 		u.setPhone_number(userPhone);
 		session.update(u);
 		BeanUser_information.currentLoginUser = (BeanUser_information)session.get(BeanUser_information.class, u.getUser_id());
@@ -177,7 +170,7 @@ public class UserManager implements IUserManager {
 			
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class,BeanUser_information.currentLoginUser.getUser_id());
+		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class, BeanUser_information.currentLoginUser.getUser_id());
 		u.setEmail(userEmail);
 		session.update(u);
 		BeanUser_information.currentLoginUser = (BeanUser_information)session.get(BeanUser_information.class, u.getUser_id());
@@ -192,7 +185,7 @@ public class UserManager implements IUserManager {
 		
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
-		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class,BeanUser_information.currentLoginUser.getUser_id());
+		BeanUser_information u = (BeanUser_information)session.get(BeanUser_information.class, BeanUser_information.currentLoginUser.getUser_id());
 		u.setOther_contact(otherContect);
 		session.update(u);
 		BeanUser_information.currentLoginUser = (BeanUser_information)session.get(BeanUser_information.class, u.getUser_id());
