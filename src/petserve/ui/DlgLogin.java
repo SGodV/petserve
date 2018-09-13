@@ -37,7 +37,7 @@ public class DlgLogin extends JDialog implements ActionListener {
 	private JPasswordField edtPwd = new JPasswordField(20);
 	
 	public static FrmUserMain frmUserMain = new FrmUserMain();
-	public static FrmManagerMain frmManagerMain= new FrmManagerMain();
+	public static FrmManagerMain frmManagerMain = new FrmManagerMain();
 	public DlgLogin() {
 		this.setTitle("µÇÂ¼");
 		toolBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -86,10 +86,14 @@ public class DlgLogin extends JDialog implements ActionListener {
 				return;
 			}
 			this.setVisible(false);
-			if (BeanUser_information.currentLoginUser.getAuthority() == 1)
+			if (BeanUser_information.currentLoginUser.getAuthority() == 1) {
+//				frmUserMain = new FrmUserMain();
 				frmUserMain.setVisible(true);
-			else if (BeanUser_information.currentLoginUser.getAuthority() == 0)
+			}
+			else if (BeanUser_information.currentLoginUser.getAuthority() == 0) {
+//				frmManagerMain = new FrmManagerMain();
 				frmManagerMain.setVisible(true);
+			}
 			else
 				System.exit(0);
 //			this.setVisible(false);

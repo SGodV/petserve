@@ -1,5 +1,7 @@
 package petserve.control;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -118,6 +120,27 @@ public class PetManager implements IPetManager {
 		qry.setParameter(0, name);
 		BeanPet_information pet = (BeanPet_information)qry.uniqueResult();
 		return pet.getPet_id();
+	}
+
+	@Override
+	public List<BeanPet_information> loadPetByUser(int userid) throws BaseException {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSession();
+		String hql = "from BeanPet_information where user_id=?";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, userid);
+		List<BeanPet_information> lpet = qry.list();
+		return lpet;
+	}
+
+	@Override
+	public List<BeanPet_information> loadAllPet() throws BaseException {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSession();
+		String hql = "from BeanPet_information";
+		Query qry = session.createQuery(hql);
+		List<BeanPet_information> lpet = qry.list();
+		return lpet;
 	}
 
 }

@@ -19,12 +19,10 @@ public class ProductInformationManager implements IProductInformationManager {
 	public List<BeanProducts_information> loadProductInformation(int typeCode) throws BaseException {
 		// TODO Auto-generated method stub
 		Session session=HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
 		String hql = "from BeanProducts_information where type_code=?";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, typeCode);
 		List<BeanProducts_information> result = qry.list();
-		transaction.commit();
 		return result;
 	}
 
@@ -122,7 +120,7 @@ public class ProductInformationManager implements IProductInformationManager {
 	}
 
 	@Override
-	public BeanProducts_information selectProductInformation(String name) throws BaseException {
+	public List<BeanProducts_information> selectProductInformation(String name) throws BaseException {
 		// TODO Auto-generated method stub
 		Session session=HibernateUtil.getSession();
 		String hql = "from BeanProducts_information a, BeanProducts_types b "
@@ -130,12 +128,12 @@ public class ProductInformationManager implements IProductInformationManager {
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, 0);
 		qry.setParameter(0, "%"+name+"%");
-		BeanProducts_information pi = (BeanProducts_information)qry.uniqueResult();
-		return pi;
+		List<BeanProducts_information> lpi = qry.list();
+		return lpi;
 	}
 
 	@Override
-	public BeanProducts_information selectServeInformation(String name) throws BaseException {
+	public List<BeanProducts_information> selectServeInformation(String name) throws BaseException {
 		// TODO Auto-generated method stub
 		Session session=HibernateUtil.getSession();
 		String hql = "from BeanProducts_information a, BeanProducts_types b "
@@ -143,8 +141,8 @@ public class ProductInformationManager implements IProductInformationManager {
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, 1);
 		qry.setParameter(0, "%"+name+"%");
-		BeanProducts_information pi = (BeanProducts_information)qry.uniqueResult();
-		return pi;
+		List<BeanProducts_information> lpi = qry.list();
+		return lpi;
 	}
 
 }

@@ -20,12 +20,10 @@ public class ProductTypeManager implements IProductTypeManager {
 	public List<BeanProducts_types> loadProductType() throws BaseException {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
 		String hql = "from BeanProducts_types where pdt_serve=?";
 		Query qry = session.createQuery(hql);
 		qry.setParameter(0, (short) 0);
 		List<BeanProducts_types> result = qry.list();
-		transaction.commit();
 		return result;
 	}
 

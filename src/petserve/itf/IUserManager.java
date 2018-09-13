@@ -1,5 +1,7 @@
 package petserve.itf;
 
+import java.util.List;
+
 import petserve.model.BeanUser_information;
 import petserve.util.BaseException;
 
@@ -12,4 +14,6 @@ public interface IUserManager {
 	public void changePhone(String userPhone) throws BaseException;
 	public void changeEmail(String userEmail) throws BaseException;
 	public void changeOtherContect(String otherContect) throws BaseException;
+	public List<BeanUser_information> loadUser() throws BaseException;
+	public List<BeanUser_information> selectUser(String name) throws BaseException;
 }

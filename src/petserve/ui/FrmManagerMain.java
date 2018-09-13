@@ -48,6 +48,7 @@ import petserve.ui.user.DlgChangePassword;
 import petserve.ui.user.DlgChangePhone;
 import petserve.ui.user.DlgChangeUserName;
 import petserve.ui.user.DlgCurrentUserInformation;
+import petserve.ui.user.DlgManagerUser;
 import petserve.util.BaseException;
 
 public class FrmManagerMain extends JFrame implements ActionListener{
@@ -96,7 +97,9 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	public List<BeanProducts_types> allPdtType = null;
 	public List<BeanProducts_information> allPdtIfm = null;
 	
-	public static DlgServeView dlgServeView = new DlgServeView();
+	public static DlgServeView dlgServeView;
+	public static DlgManagerUser dlgManagerUser;
+	
 	public void reloadPdtTypeTable() {
 		try {
 			allPdtType = PetUtil.productTypeManager.loadProductType();
@@ -121,6 +124,17 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, e.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		tblPdtIfmData =  new Object[allPdtIfm.size()][BeanProducts_information.tblPdtIfmTitle.length];
+		for(int i=0;i<allPdtIfm.size();i++){
+			for(int j=0;j<BeanProducts_information.tblPdtIfmTitle.length;j++)
+				tblPdtIfmData[i][j]=allPdtIfm.get(i).getCell(j);
+		}
+		tabPdtIfmModel.setDataVector(tblPdtIfmData,tblPdtIfmTitle);
+		this.dataTablePdtIfm.validate();
+		this.dataTablePdtIfm.repaint();
+	}
+	
+	public void reloadPdtIfmTable() {
 		tblPdtIfmData =  new Object[allPdtIfm.size()][BeanProducts_information.tblPdtIfmTitle.length];
 		for(int i=0;i<allPdtIfm.size();i++){
 			for(int j=0;j<BeanProducts_information.tblPdtIfmTitle.length;j++)
@@ -210,9 +224,11 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == this.userMenuItem_1) {
-			
+			dlgManagerUser = new DlgManagerUser();
+			dlgManagerUser.setVisible(true);
 		}
 		else if(e.getSource() == this.userMenuItem_2) {
+			dlgServeView = new DlgServeView();
 			dlgServeView.setVisible(true);
 		}
 //		else if(e.getSource() == this.userMenuItem_3) {
@@ -223,12 +239,13 @@ public class FrmManagerMain extends JFrame implements ActionListener{
 //		}
 		else if(e.getSource() == this.jButton) {
 			try {
-				PetUtil.productInformationManager.selectProductInformation(this.jTextField.getText());
+				allPdtIfm = PetUtil.productInformationManager.selectProductInformation(this.jTextField.getText());
 			} catch (BaseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
 			}
+			DlgLogin.frmManagerMain.reloadPdtIfmTable();
 		}
 		else if(e.getSource() == this.addType) {
 			DlgAddPdtType dlgAddPdtType = new DlgAddPdtType();

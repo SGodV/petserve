@@ -70,11 +70,7 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	private JMenuItem orderMenuItem_1 = new JMenuItem("未支付订单");
 	private JMenuItem orderMenuItem_2 = new JMenuItem("进行中订单");
 	private JMenuItem orderMenuItem_3 = new JMenuItem("已完成订单");
-	private JMenuItem orderMenuItem_4 = new JMenuItem("修改商品种类");
-	private JMenuItem orderMenuItem_5 = new JMenuItem("修改商品价格");
-
-	private JMenuItem buyMenuItem_1 = new JMenuItem("查看商品");
-	private JMenuItem buyMenuItem_2 = new JMenuItem("查看服务");
+	private JMenuItem orderMenuItem_4 = new JMenuItem("查看服务");
 	
 	
 	private JPanel titlePane = new JPanel();
@@ -112,9 +108,9 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		this.dataTablePdtType.repaint();
 	}
 	
-	public void reloadPdtIfmTable() {
+	public void reloadPdtIfmTable(int positionid) {
 		try {
-			allPdtIfm = PetUtil.productInformationManager.loadProductInformation(1);
+			allPdtIfm = PetUtil.productInformationManager.loadProductInformation(allPdtType.get(positionid).getType_code());
 		} catch (BaseException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
 			return;
@@ -131,7 +127,7 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	
 	public FrmUserMain() {
 //		this.setExtendedState(Frame.MAXIMIZED_BOTH);
-		this.setTitle("宠物服务系统");	
+		this.setTitle("宠物服务系统（用户版）");	
 		setJMenuBar(menuBar);
 		this.menuBar.add(userMenu);
 		this.menuBar.add(petMenu);
@@ -158,9 +154,9 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		this.orderMenu.add(orderMenuItem_2);
 		this.orderMenu.add(orderMenuItem_3);
 		this.orderMenu.add(orderMenuItem_4);
-		this.orderMenu.add(orderMenuItem_5);
-		this.buyMenu.add(buyMenuItem_1);
-		this.buyMenu.add(buyMenuItem_2);
+//		this.orderMenu.add(orderMenuItem_5);
+//		this.buyMenu.add(buyMenuItem_1);
+//		this.buyMenu.add(buyMenuItem_2);
 		
 		this.titlePane.add(titleLabel);
 		this.getContentPane().add(titlePane, BorderLayout.NORTH);
@@ -195,7 +191,6 @@ public class FrmUserMain extends JFrame implements ActionListener{
 	    
 	    
 	    this.reloadPdtTypeTable();
-		this.reloadPdtIfmTable();
 		this.setSize(1600, 900);
 		
 		// 屏幕居中显示
@@ -225,9 +220,9 @@ public class FrmUserMain extends JFrame implements ActionListener{
 		this.orderMenuItem_2.addActionListener(this);
 		this.orderMenuItem_3.addActionListener(this);
 		this.orderMenuItem_4.addActionListener(this);
-		this.orderMenuItem_5.addActionListener(this);
-		this.buyMenuItem_1.addActionListener(this);
-		this.buyMenuItem_2.addActionListener(this);
+//		this.orderMenuItem_5.addActionListener(this);
+//		this.buyMenuItem_1.addActionListener(this);
+//		this.buyMenuItem_2.addActionListener(this);
 	}
 	
 
@@ -287,8 +282,8 @@ public class FrmUserMain extends JFrame implements ActionListener{
 			;
 		else if(e.getSource() == this.orderMenuItem_4)
 			;
-		else if(e.getSource() == this.orderMenuItem_5)
-			;
+//		else if(e.getSource() == this.orderMenuItem_5)
+//			;
 	}
 
 }

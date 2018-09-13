@@ -1,5 +1,7 @@
 package petserve.control;
 
+import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import petserve.itf.IUserManager;
+import petserve.model.BeanProducts_types;
 import petserve.model.BeanUser_information;
 import petserve.util.BaseException;
 import petserve.util.BusinessException;
@@ -190,6 +193,27 @@ public class UserManager implements IUserManager {
 		session.update(u);
 		BeanUser_information.currentLoginUser = (BeanUser_information)session.get(BeanUser_information.class, u.getUser_id());
 		transaction.commit();
+	}
+
+	@Override
+	public List<BeanUser_information> loadUser() throws BaseException {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSession();
+		String hql = "from BeanUser_information where authority=1";
+		Query qry = session.createQuery(hql);
+		List<BeanUser_information> result = qry.list();
+		return result;
+	}
+
+	@Override
+	public List<BeanUser_information> selectUser(String name) throws BaseException {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSession();
+		String hql = "from BeanUser_information where user_name=? and authority=1";
+		Query qry = session.createQuery(hql);
+		qry.setParameter(0, "%"+name+"%");
+		List<BeanUser_information> result = qry.list();
+		return result;
 	}
 
 }

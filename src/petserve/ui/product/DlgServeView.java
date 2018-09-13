@@ -93,6 +93,17 @@ public class DlgServeView extends JDialog implements ActionListener {
 		this.dataTableServeIfm.repaint();
 	}
 	
+	public void reloadServeIfmTable() {
+		tblServeIfmData =  new Object[allServeIfm.size()][BeanProducts_information.tblPdtIfmTitle.length];
+		for(int i=0;i<allServeIfm.size();i++){
+			for(int j=0;j<BeanProducts_information.tblPdtIfmTitle.length;j++)
+				tblServeIfmData[i][j]=allServeIfm.get(i).getCell(j);
+		}
+		tabServeIfmModel.setDataVector(tblServeIfmData,tblServeIfmTitle);
+		this.dataTableServeIfm.validate();
+		this.dataTableServeIfm.repaint();
+	}
+	
 	public DlgServeView() {
 		//this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setTitle("·þÎñä¯ÀÀ");	
@@ -160,12 +171,13 @@ public class DlgServeView extends JDialog implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == this.jButton) {
 			try {
-				PetUtil.productInformationManager.selectServeInformation(this.jTextField.getText());
+				allServeIfm = PetUtil.productInformationManager.selectServeInformation(this.jTextField.getText());
 			} catch (BaseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
 			}
+			FrmManagerMain.dlgServeView.reloadServeIfmTable();
 		}
 		else if(e.getSource() == this.addType) {
 			DlgAddServeType dlgAddServeType = new DlgAddServeType();
@@ -262,7 +274,7 @@ public class DlgServeView extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			DlgLogin.frmManagerMain.reloadPdtTypeTable();
+			FrmManagerMain.dlgServeView.reloadServeTypeTable();
 			
 		}
 		else if(e.getSource() == this.deleteDetail) {
@@ -279,8 +291,8 @@ public class DlgServeView extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "´íÎó",JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			if (DlgLogin.frmManagerMain.dataTablePdtType.getSelectedRow() >= 0)
-				DlgLogin.frmManagerMain.reloadPdtIfmTable(DlgLogin.frmManagerMain.dataTablePdtType.getSelectedRow());
+			if (FrmManagerMain.dlgServeView.dataTableServeType.getSelectedRow() >= 0)
+				FrmManagerMain.dlgServeView.reloadServeIfmTable(FrmManagerMain.dlgServeView.dataTableServeType.getSelectedRow());
 		}
 	}
 
